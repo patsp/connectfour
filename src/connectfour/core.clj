@@ -14,5 +14,6 @@
           (render-model view model)
           (throw-game-piece model (next-turn view model))
           (change-player model)
+          ;; TODO: check if board full --> then also finished
           (recur (not (nil? (winner model)))))))))
 

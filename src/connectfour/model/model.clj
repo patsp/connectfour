@@ -133,8 +133,8 @@
          (alter (prev-insert-pos-ref model) (fn [_] [@insert-pos-ref col]))
          ;; then change the row where the next piece in this column
          ;; is inserted
-         (alter insert-pos-ref inc)))))
-  model)
+         (alter insert-pos-ref inc))))
+    model))
 
 (defn gen-all-win-possibs-from-pos
   "Generate all possible 4 values from the given pos.
