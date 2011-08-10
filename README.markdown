@@ -12,3 +12,10 @@ Use leiningen to build the project
 then
 
     $ java -jar connectfour-1.0.0-SNAPSHOT-standalone.jar
+
+#License
+
+Copyright (C) 2011 Patrick Spettel
+
+Distributed under the Eclipse Public License, the same as Clojure.
+
