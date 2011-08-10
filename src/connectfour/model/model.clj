@@ -124,17 +124,18 @@
       ;; get the row (insert-pos-ref) in which to change
       ;;the piece to the curr-player in the given col
       (let [insert-pos-ref (next-insert-pos-ref model col)]
-        (dosync
-         ;; first change the piece
-         (alter
-          (player-at-row-col-ref model @insert-pos-ref col)
-          (fn [_] (curr-player model)))
-         ;; then change update the prev-insert-pos
-         (alter (prev-insert-pos-ref model) (fn [_] [@insert-pos-ref col]))
-         ;; then change the row where the next piece in this column
-         ;; is inserted
-         (alter insert-pos-ref inc))))
-    model))
+        (when (< @insert-pos-ref n-rows)
+          (dosync
+           ;; first change the piece
+           (alter
+            (player-at-row-col-ref model @insert-pos-ref col)
+            (fn [_] (curr-player model)))
+           ;; then change update the prev-insert-pos
+           (alter (prev-insert-pos-ref model) (fn [_] [@insert-pos-ref col]))
+           ;; then change the row where the next piece in this column
+           ;; is inserted
+           (alter insert-pos-ref inc)
+           true))))))
 
 (defn gen-all-win-possibs-from-pos
   "Generate all possible 4 values from the given pos.

@@ -1,19 +1,19 @@
 (ns connectfour.core
   (:use [connectfour.model.model])
-  (:use [connectfour.view.cliview])
+  (:use [connectfour.view.guiview])
   (:gen-class))
 
 (defn -main [& args]
   (let [model (make-model 4 4)
-        view (make-view)]
+        view (make-view model)]
     (set-initial-player model player1)
     (loop [finished false]
       (if finished
         (render-model view model)
         (do
           (render-model view model)
-          (throw-game-piece model (next-turn view model))
-          (change-player model)
+          (when (throw-game-piece model (next-turn view model))
+            (change-player model))
           ;; TODO: check if board full --> then also finished
           (recur (not (nil? (winner model)))))))))
 

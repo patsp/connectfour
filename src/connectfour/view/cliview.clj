@@ -11,7 +11,7 @@
 (defn make-view
   "Creates a new view. In the case of a CLI view there is
   nothing to create. Thus, just return nil for now."
-  []
+  [model]
   nil)
 
 (defn render-model
