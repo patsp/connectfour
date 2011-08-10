@@ -14,7 +14,7 @@
   (:gen-class))
 
 (defn -main [& args]
-  (let [model (make-model 4 4)
+  (let [model (make-model 6 7)
         view (make-view model)]
     (set-initial-player model player1)
     (loop [finished false]
@@ -24,6 +24,5 @@
           (render-model view model)
           (when (throw-game-piece model (next-turn view model))
             (change-player model))
-          ;; TODO: check if board full --> then also finished
-          (recur (not (nil? (winner model)))))))))
+          (recur (or (board-full? model) (not (nil? (winner model))))))))))
 

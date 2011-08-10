@@ -190,6 +190,14 @@
                      true nil)
                    (gen-all-win-possibs-from-pos model [row col]))))))
 
+(defn board-full?
+  "Checks whether the board is full."
+  [model]
+  (= (count (:next-insert-pos-for-cols model))
+     (count (filter #(= true %)
+                    (map #(-> % deref (>= (n-rows model)))
+                         (:next-insert-pos-for-cols model))))))
+
 (defn print-board
   [model]
   (println (board model)))

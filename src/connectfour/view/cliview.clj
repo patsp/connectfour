@@ -30,15 +30,18 @@
   (let [n-rows (n-rows model)
         n-cols (n-cols model)
         win (winner model)]
-    (if (nil? win)
-      (do
-        (print "It is ")
-        (print (player-names (curr-player model)))
-        (println "'s turn."))
-      (do
-        (print "Game finished. ")
-        (print (player-names win))
-        (println " is the winner.")))
+    (cond (not (nil? win))
+          (do
+            (print "Game finished. ")
+            (print (player-names win))
+            (println " is the winner."))
+          (board-full? model)
+          (println "Game finished. There is no winner.")
+          true
+          (do
+            (print "It is ")
+            (print (player-names (curr-player model)))
+            (println "'s turn.")))
     (doseq [r (range (dec n-rows) -1 -1)]
       (println
        (apply str

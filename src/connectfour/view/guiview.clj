@@ -44,15 +44,20 @@
                   tile-width (/ width (n-cols model))
                   tile-height (/ height (n-rows model))
                   win (winner model)]
-              (if (nil? win)
-                (.drawString g (str "It is "
-                                    (player-names (curr-player model))
-                                    "'s turn.")
-                             0 20)
-                (.drawString g (str "Game finished. "
-                                    (player-names win)
-                                    " is the winner.")
-                             0 20))
+              (cond (not (nil? win))
+                    (.drawString g (str "Game finished. "
+                                        (player-names win)
+                                        " is the winner.")
+                                 0 20)
+                    (board-full? model)
+                    (.drawString g (str "Game finished. "
+                                        "There is no winner.")
+                                 0 20)
+                    true
+                    (.drawString g (str "It is "
+                                        (player-names (curr-player model))
+                                        "'s turn.")
+                                 0 20))
               (loop [row (dec (n-rows model)) col 0]
                 (when (and (< col (n-cols model)) (>= row 0))
                   (.setColor g (player-colors
@@ -83,8 +88,8 @@
 
 (defn render-model
   "Displays the model.
-  Nothing to display in this GUI-view because all
-  the work is done in the panel's paint function."
+  Most of the painting work is done in the canvas' paint function.
+  So just repaint the canvas."
   [view model]
   (.repaint view))
 
