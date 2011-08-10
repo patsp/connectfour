@@ -61,15 +61,18 @@
     (is (= (player-at-row-col
             (do
               (set-initial-player model player1)
-              (throw-game-piece model 0))
+              (throw-game-piece model 0)
+              model)
             0 0) player1))
     (is (= (player-at-row-col
-            (throw-game-piece model 0)
+            (do
+              (throw-game-piece model 0)
+              model)
             1 0) player1))
     (is (= (player-at-row-col model 2 0) no-player))
     (is (= (player-at-row-col model 2 5) no-player))
     (is (= (player-at-row-col
-            (throw-game-piece model 0)
+            (do (throw-game-piece model 0) model)
             2 0) player1))))
 
 (deftest test-winner-vertical
@@ -78,16 +81,23 @@
            (winner
             (do
               (set-initial-player model player1)
-              (throw-game-piece model 0)))))
+              (throw-game-piece model 0)
+              model))))
     (is (= nil
            (winner
-            (throw-game-piece model 0))))
+            (do
+              (throw-game-piece model 0)
+              model))))
     (is (= nil
            (winner
-            (throw-game-piece model 0))))
+            (do
+              (throw-game-piece model 0)
+              model))))
     (is (= player1
            (winner
-            (throw-game-piece model 0))))))
+            (do
+              (throw-game-piece model 0)
+              model))))))
 
 (deftest test-winner-horizontal
   (let [model (make-model 4 4)]
@@ -95,16 +105,23 @@
            (winner
             (do
               (set-initial-player model player1)
-              (throw-game-piece model 0)))))
+              (throw-game-piece model 0)
+              model))))
     (is (= nil
            (winner
-            (throw-game-piece model 1))))
+            (do
+              (throw-game-piece model 1)
+              model))))
     (is (= nil
            (winner
-            (throw-game-piece model 2))))
+            (do
+              (throw-game-piece model 2)
+              model))))
     (is (= player1
            (winner
-            (throw-game-piece model 3))))))
+            (do
+              (throw-game-piece model 3)
+              model))))))
 
 (deftest test-winner-diagonal
   (let [model (make-model 4 4)]
@@ -112,14 +129,16 @@
            (winner
             (do
               (set-initial-player model player1)
-              (throw-game-piece model 0)))))
+              (throw-game-piece model 0)
+              model))))
     (is (= nil
            (winner
             (do
               (change-player model) ;; change to player2
               (throw-game-piece model 1)
               (change-player model) ;; change back to player1
-              (throw-game-piece model 1)))))
+              (throw-game-piece model 1)
+              model))))
     (is (= nil
            (winner
             (do
@@ -127,7 +146,8 @@
               (throw-game-piece model 2)
               (throw-game-piece model 2)
               (change-player model) ;; change back to player1
-              (throw-game-piece model 2)))))
+              (throw-game-piece model 2)
+              model))))
     (is (= player1
            (winner
             (do
@@ -136,4 +156,5 @@
               (throw-game-piece model 3)
               (throw-game-piece model 3)
               (change-player model) ;; change back to player1
-              (throw-game-piece model 3)))))))
+              (throw-game-piece model 3)
+              model))))))
