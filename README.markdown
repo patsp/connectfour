@@ -2,7 +2,7 @@
 
 Simple "Connect Four" implementation in Clojure.
 
-#Build instructions
+#Building/Running instructions
 
 Use leiningen to build the project
 
@@ -11,6 +11,10 @@ Use leiningen to build the project
 then
 
     $ java -jar connectfour-1.0.0-SNAPSHOT-standalone.jar
+
+or
+
+    $ lein run
 
 #License
 
