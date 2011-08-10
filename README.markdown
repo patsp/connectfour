@@ -1,7 +1,6 @@
 #Connect Four
 
 Simple "Connect Four" implementation in Clojure.
-Currently only the command line view is fully implemented.
 
 #Build instructions
 
